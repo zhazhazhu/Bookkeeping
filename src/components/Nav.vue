@@ -5,6 +5,7 @@
         path: '/labels',
       }"
       class="item"
+      active-class="selected"
     >
       <Icon name="label" />
       标签
@@ -14,6 +15,7 @@
         path: '/money',
       }"
       class="item"
+      active-class="selected"
     >
       <Icon name="money" />
       记账</router-link
@@ -23,6 +25,7 @@
         path: '/statistics',
       }"
       class="item"
+      active-class="selected"
     >
       <Icon name="statistics" />
       统计</router-link
@@ -55,7 +58,7 @@ nav {
     flex-direction: column;
   }
   > .item.selected {
-    color: red;
+    margin-top: -8px;
   }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="nav">
     <router-link
       :to="{
         path: '/labels',
@@ -29,5 +29,8 @@ export default Vue.extend({
 });
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.nav{
+  border: 1px solid red;
+}
 </style>

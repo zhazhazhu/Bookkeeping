@@ -1,10 +1,11 @@
 <template>
-  <div class="nav">
+  <nav>
     <router-link
       :to="{
         path: '/labels',
       }"
-      >
+      class="item"
+    >
       <Icon name="label" />
       标签
     </router-link>
@@ -12,19 +13,21 @@
       :to="{
         path: '/money',
       }"
-      >
-      <Icon name="money"/>
+      class="item"
+    >
+      <Icon name="money" />
       记账</router-link
     >
     <router-link
       :to="{
         path: '/statistics',
       }"
-      >
-      <Icon name="statistics"/>
+      class="item"
+    >
+      <Icon name="statistics" />
       统计</router-link
     >
-  </div>
+  </nav>
 </template>
 
 <script lang="ts">
@@ -34,7 +37,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.nav {
-  border: 1px solid red;
+nav {
+  display: flex;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+  flex-direction: row;
+  font-size: 12px;
+  height: 80px;
+  background-color: #ffc266;
+  > .item {
+    padding: 2px 0;
+    width: 33.33333%;
+    display: flex;
+    color: rgb(31, 31, 31);
+    text-decoration: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  > .item.selected {
+    color: red;
+  }
 }
 </style>

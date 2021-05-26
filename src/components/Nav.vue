@@ -4,33 +4,37 @@
       :to="{
         path: '/labels',
       }"
-      >标签</router-link
-    >
+      >
+      <Icon name="label" />
+      标签
+    </router-link>
     <router-link
       :to="{
         path: '/money',
       }"
-      >记账</router-link
+      >
+      <Icon name="money"/>
+      记账</router-link
     >
     <router-link
       :to="{
         path: '/statistics',
       }"
-      >统计</router-link
+      >
+      <Icon name="statistics"/>
+      统计</router-link
     >
   </div>
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-
-export default Vue.extend({
+export default {
   name: "Nav",
-});
+};
 </script>
 
 <style lang="scss" scoped>
-.nav{
+.nav {
   border: 1px solid red;
 }
 </style>

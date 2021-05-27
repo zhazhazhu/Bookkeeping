@@ -11,13 +11,8 @@
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
 
-@Component({
-  props: {
-    propMessage: String,
-  },
-})
+@Component
 export default class Types extends Vue {
-  helloMsg = "Hello," + this.propMessage;
   type = "-"; //‘-’表示支出，‘+’表示收入
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   selectType(type: string) {

@@ -3,7 +3,7 @@
     <Numbers></Numbers>
     <Notes></Notes>
     <Tags></Tags>
-    <Types></Types>
+    <Types :propA='123'></Types>
   </Layout>
 </template>
 

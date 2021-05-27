@@ -1,9 +1,9 @@
 <template>
   <Layout classPrefix="layout">
-    <Numbers></Numbers>
-    <Notes></Notes>
+    <Numbers :money="money" @done="handleDone"></Numbers>
+    <Notes :money="money"></Notes>
     <Tags></Tags>
-    <Types :propA='123'></Types>
+    <Types></Types>
   </Layout>
 </template>
 
@@ -15,6 +15,21 @@ import Numbers from "@/components/Money/Numbers.vue";
 export default {
   name: "Money",
   components: { Types, Tags, Notes, Numbers },
+  data() {
+    return {
+      money: {
+        tag: "",
+        value: 0,
+        remark: "",
+        type: "支出",
+      },
+    };
+  },
+  methods: {
+    handleDone() {
+      // 处理完成
+    },
+  },
 };
 </script>
 

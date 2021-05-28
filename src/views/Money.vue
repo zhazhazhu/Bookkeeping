@@ -1,6 +1,6 @@
 <template>
   <Layout classPrefix="layout">
-    <Numbers :money="money" @done="handleDone"></Numbers>
+    <Numbers :money="money"></Numbers>
     <Notes :money="money"></Notes>
     <Tags></Tags>
     <Types></Types>
@@ -12,25 +12,30 @@ import Types from "@/components/Money/Types.vue";
 import Tags from "@/components/Money/Tags.vue";
 import Notes from "@/components/Money/Notes.vue";
 import Numbers from "@/components/Money/Numbers.vue";
-export default {
-  name: "Money",
+import Vue from "vue";
+import { Component, Prop } from "vue-property-decorator";
+
+@Component({
   components: { Types, Tags, Notes, Numbers },
-  data() {
-    return {
-      money: {
-        tag: "",
-        value: 0,
-        remark: "",
-        type: "支出",
-      },
-    };
-  },
-  methods: {
-    handleDone() {
-      // 处理完成
-    },
-  },
-};
+})
+export default class Money extends Vue {
+// tag:"" | undefined
+// remark:"请输入"|undefined
+// type:"支出" |undefined
+data(){
+  return{
+    money:{
+      value:''
+    }
+  }
+}
+
+  // methods: {
+  //   handleDone() {
+  //     // 处理完成
+  //   },
+  // }
+}
 </script>
 
 <style lang="scss">

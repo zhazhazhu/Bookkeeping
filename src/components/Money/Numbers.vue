@@ -17,7 +17,7 @@
       <button @click="inputContent">.</button>
       <button @click="inputContent">0</button>
       <button @click="remove" class="zero">删除</button>
-      <button  class="ok">完成</button>
+      <button @click="ok" class="ok">完成</button>
     </div>
   </div>
 </template>
@@ -60,6 +60,9 @@ export default class Numbers extends Vue {
     } else {
       this.money = this.money.slice(0, -1);
     }
+  }
+  ok(){
+    this.$emit('update:value',this.money)
   }
 }
 </script>

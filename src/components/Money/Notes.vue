@@ -9,26 +9,18 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { Component, Prop } from "vue-property-decorator";
+import { Component, Watch } from "vue-property-decorator";
 
 @Component
 export default class Notes extends Vue {
+  value = "";
 
-value = ''
-
-  // @Prop({
-  //   type: String, // 父组件传递给子组件的数据类型
-  //   required: false, // 是否必填
-  //   default: " ", // 默认值， 如果传入的是 Object，则要 default: ()=>({}) 参数为函数
-  // })
-  // output!: undefined;
-
-  // @Prop({
-  //   type:String,
-  //   required:false,
-  //   default:"0"
-  // })
-  // money : Money | undefined;
+  @Watch("value")
+  onValueChanged(value: string, oldValue: string) {
+    if (value !== '') {
+      this.$emit("update:value", value);
+    }
+  }
 }
 </script>
 
@@ -40,7 +32,7 @@ value = ''
   padding-left: 16px;
   display: flex;
   align-items: center;
-  
+
   .name {
     padding-right: 16px;
   }
@@ -52,6 +44,5 @@ value = ''
     padding-right: 16px;
     outline: none;
   }
-  
 }
 </style>

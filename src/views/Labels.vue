@@ -1,14 +1,20 @@
 <template>
   <Layout>
-    Labels.vue
+    <Head></Head>
   </Layout>
 </template>
 
 <script lang="ts">
+import Vue from "vue";
+import Head from '@/components/Labels/Head.vue'
+import { Component, Emit, Prop } from "vue-property-decorator";
 
-  export default({
-    name:'Labels'
-  })
+@Component({
+  components:{Head}
+})
+export default class Labels extends Vue{
+  
+}
 </script>
 
 <style scoped>

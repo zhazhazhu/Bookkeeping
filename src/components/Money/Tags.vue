@@ -5,7 +5,9 @@
         <Icon :name="tag" :class="{ selected: tag === currTag }" />
       </li>
       <li @click="create">
-        <Icon name="new" class="icon" />
+        <router-link :to="{ path: '/labels' }">
+          <Icon name="new" id="newIcon" />
+        </router-link>
       </li>
     </ul>
   </div>
@@ -66,6 +68,10 @@ export default class Tags extends Vue {
         height: 100%;
         width: 100%;
       }
+      >.newIcon{
+        border: 1px solid rgb(0, 255, 170);
+        
+      }
       > .icon.selected {
         width: 50px;
         border: 1px solid rgb(255, 145, 0);
@@ -73,6 +79,10 @@ export default class Tags extends Vue {
         box-shadow: 1px 1px 10px rgb(255, 183, 89);
       }
     }
+  }
+  #newIcon{
+    width: 100%;
+    height: 100%;
   }
 }
 </style>

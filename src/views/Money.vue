@@ -1,10 +1,9 @@
 <template>
   <Layout classPrefix="layout">
-    {{record}}
-    <Numbers @update:value="onUpdateNumbers"></Numbers>
-    <Notes @update:value="onUpdateNotes"></Notes>
-    <Tags @update:value="onUpdateTags" :dataSource.sync="tags"></Tags>
-    <Types @update:value="onUpdateTypes"></Types>
+    <Numbers :value.sync="record.numbers" @done="handleDone"></Numbers>
+    <Notes :value.sync="record.notes"></Notes>
+    <Tags :tags="tags" :currTag.sync="record.tag" @update:value="onUpdateTags"></Tags>
+    <Types :value.sync="record.type"></Types>
   </Layout>
 </template>
 
@@ -17,10 +16,10 @@ import Numbers from "@/components/Money/Numbers.vue";
 import { Component, Prop } from "vue-property-decorator";
 
 type Record = {
-  tags: string[];
+  tag: string;
   notes: string;
   type: string;
-  numbers: number;
+  numbers: string;
 };
 
 @Component({
@@ -29,23 +28,13 @@ type Record = {
 export default class Money extends Vue {
   tags = ["apparel", "foot", "house", "travel"];
 
-  record:Record = {tags:[],notes:'',type:'-',numbers:0}
+  record: Record = { tag: "", notes: "", type: "-", numbers: "999" };
 
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  onUpdateTags(tags: string[]) {
-    this.record.tags=tags; //获取到Tags组件里的用户选择的标签
+  handleDone(): void {
+    localStorage.setItem("record", JSON.stringify(this.record));
   }
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  onUpdateNotes(note: string) {
-    this.record.notes =note
-  }
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  onUpdateNumbers(numbers: number) {
-    this.record.numbers = numbers
-  }
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  onUpdateTypes(types: string) {
-    this.record.type = types
+  onUpdateTags(tag: string): void {
+    this.record.tag = tag;
   }
 }
 </script>

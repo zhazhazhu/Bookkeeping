@@ -24,13 +24,18 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { Component, Prop } from "vue-property-decorator";
+import { Component, Emit, Prop } from "vue-property-decorator";
 
 @Component
 export default class Numbers extends Vue {
+  // money = "0";
+  @Prop()
+  readonly value!: string;
   money = "0";
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  inputContent(event: MouseEvent) {
+  mounted(): void {
+    this.money = this.value;
+  }
+  inputContent(event: MouseEvent): void {
     const button = event.target as HTMLButtonElement;
     const input = button.textContent as string;
     if (this.money.length === 8) {
@@ -53,16 +58,19 @@ export default class Numbers extends Vue {
       }
     }
     this.money += input;
+    this.$emit("update:value", this.money);
   }
-  remove() {
+  remove(): void {
     if (this.money.length === 1) {
       this.money = "0";
     } else {
       this.money = this.money.slice(0, -1);
     }
+    this.$emit("update:value", this.money);
   }
-  ok(){
-    this.$emit('update:value',this.money)
+  @Emit("done")
+  ok(): void {
+    this.money = "0";
   }
 }
 </script>
@@ -96,6 +104,7 @@ export default class Numbers extends Vue {
     border: 1px solid transparent;
     border: 1px solid rgb(202, 202, 202);
     background-color: white;
+    font-size: 16px;
   }
 }
 </style>

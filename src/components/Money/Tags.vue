@@ -1,11 +1,8 @@
 <template>
   <div class="tags">
     <ul class="current">
-      <li v-for="tag in dataSource" :key="tag" @click="toggle(tag)">
-        <Icon
-          :name="tag"
-          :class="{ selected: selectedTags.indexOf(tag) >= 0 }"
-        />
+      <li v-for="tag in tags" :key="tag" @click="toggle(tag)">
+        <Icon :name="tag" :class="{ selected: tag === currTag }" />
       </li>
       <li @click="create">
         <Icon name="new" class="icon" />
@@ -16,37 +13,35 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { Component, Prop } from "vue-property-decorator";
+import { Component, Emit, Prop } from "vue-property-decorator";
 
 @Component
 export default class Tags extends Vue {
-  @Prop(Array) dataSource: string[] | undefined; //表示这个数组里面是字符串
+  @Prop({
+    required: true,
+    type: Array,
+  })
+  tags!: string[]; //表示这个数组里面是字符串
 
-  selectedTags: string[] = [];
+  @Prop()
+  currTag!: string;
 
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  toggle(tag: string) {
-    const index = this.selectedTags.indexOf(tag);
-    if (index >= 0) {
-      this.selectedTags.splice(index, 0);
-    } else {
-      this.selectedTags.splice(index,1,tag);
-    }
-    this.$emit('update:value',this.selectedTags) //把selectedTags数据传到名字为update:selected的外部组件，这里是Money组件，
+  @Emit("update:value")
+  toggle(tag: string): void {
+    console.log(tag);
   }
-  create(){
-    const name =window.prompt("请输入标签名：")
-    console.log(name);
-    if(name === ''){
-      window.alert('标签名不能为空')
-    }else{
-      if(this.dataSource){
-        this.$emit('updata:dataSource',[...this.dataSource,name])
-      }
-      }
-    }
+  create(): void {
+    // const name = window.prompt("请输入标签名：");
+    // console.log(name);
+    // if (name === "") {
+    //   window.alert("标签名不能为空");
+    // } else {
+    //   if (this.currTag) {
+    //     this.$emit("update:value", [...this.currTag, name]);
+    //   }
+    // }
   }
-
+}
 </script>
 
 <style lang="scss" scoped>

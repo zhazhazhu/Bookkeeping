@@ -9,15 +9,15 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { Component, Watch } from "vue-property-decorator";
+import { Component, Prop, Watch } from "vue-property-decorator";
 
 @Component
 export default class Notes extends Vue {
-  value = "";
+  @Prop() readonly value!: string;
 
   @Watch("value")
-  onValueChanged(value: string, oldValue: string) {
-    if (value !== '') {
+  onValueChanged(value: string, oldValue: string): void {
+    if (value !== "") {
       this.$emit("update:value", value);
     }
   }

@@ -3,7 +3,6 @@
     <Numbers :value.sync="record.numbers" @done="handleDone"></Numbers>
     <Notes :value.sync="record.notes"></Notes>
     <Tags
-      :tags="tags"
       :currTag.sync="record.tag"
       @update:value="onUpdateTags"
     ></Tags>
@@ -17,9 +16,10 @@ import Types from "@/components/Money/Types.vue";
 import Tags from "@/components/Money/Tags.vue";
 import Notes from "@/components/Money/Notes.vue";
 import Numbers from "@/components/Money/Numbers.vue";
-import { Component, Emit, Watch } from "vue-property-decorator";
+import { Component, Watch } from "vue-property-decorator";
 import { RecordItem } from "@/types";
 import { model } from "@/model";
+import Layout from '@/components/Layout.vue'
 
 const version = window.localStorage.getItem("version") || "0";
 const recordList: RecordItem[] = model.fetch();
@@ -34,15 +34,15 @@ if (version === "0.0.1") {
 window.localStorage.setItem("version", "0.0.1");
 
 @Component({
-  components: { Types, Tags, Notes, Numbers },
+  components: { Types, Tags, Notes, Numbers, Layout },
 })
 export default class Money extends Vue {
-  tags = ["apparel", "foot", "house", "travel"];
+  // tags = ["apparel", "foot", "house", "travel"];
 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  @Emit("tags") send(tags: string[]) {
-    console.log(tags);
-  }
+  // @Emit("tags") send(tags: string[]) {
+  //   console.log(tags);
+  // }
 
   record: RecordItem = {
     tag: "",

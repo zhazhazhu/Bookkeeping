@@ -16,14 +16,11 @@
 <script lang="ts">
 import Vue from "vue";
 import { Component, Emit, Prop } from "vue-property-decorator";
+import { tags } from "@/Tags";
 
 @Component
 export default class Tags extends Vue {
-  @Prop({
-    required: true,
-    type: Array,
-  })
-  tags!: string[]; //表示这个数组里面是字符串
+  tags: string[] = tags; //表示这个数组里面是字符串
 
   @Prop()
   currTag!: string;
@@ -68,9 +65,8 @@ export default class Tags extends Vue {
         height: 100%;
         width: 100%;
       }
-      >.newIcon{
+      > .newIcon {
         border: 1px solid rgb(0, 255, 170);
-        
       }
       > .icon.selected {
         width: 50px;
@@ -80,7 +76,7 @@ export default class Tags extends Vue {
       }
     }
   }
-  #newIcon{
+  #newIcon {
     width: 100%;
     height: 100%;
   }

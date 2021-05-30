@@ -1,7 +1,7 @@
 <template>
   <div class="tags">
     <ul class="current">
-      <li v-for="tag in tags" :key="tag" @click="toggle(tag)">
+      <li v-for="tag in tagList" :key="tag" @click="toggle(tag)">
         <Icon :name="tag" :class="{ selected: tag === currTag }" />
       </li>
       <li @click="create">
@@ -15,15 +15,23 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { Component, Emit, Prop } from "vue-property-decorator";
+import { Component, Emit, Prop, Watch } from "vue-property-decorator";
 import { tags } from "@/Tags";
 
 @Component
 export default class Tags extends Vue {
   tags: string[] = tags; //表示这个数组里面是字符串
 
+  tagList: string[] = JSON.parse(localStorage.getItem("tagList") || "");
+
   @Prop()
   currTag!: string;
+
+  @Watch("tagList")
+  onTagListChange() {
+    window.localStorage.getItem("tagList");
+    
+  }
 
   @Emit("update:value")
   toggle(tag: string): void {

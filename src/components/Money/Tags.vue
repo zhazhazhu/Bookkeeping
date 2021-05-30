@@ -22,7 +22,7 @@ import { tags } from "@/Tags";
 export default class Tags extends Vue {
   tags: string[] = tags; //表示这个数组里面是字符串
 
-  tagList: string[] = JSON.parse(localStorage.getItem("tagList") || "");
+  tagList: string[] = JSON.parse(localStorage.getItem("tagList") || "[]");
 
   @Prop()
   currTag!: string;
@@ -30,7 +30,6 @@ export default class Tags extends Vue {
   @Watch("tagList")
   onTagListChange() {
     window.localStorage.getItem("tagList");
-    
   }
 
   @Emit("update:value")

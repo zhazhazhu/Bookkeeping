@@ -20,7 +20,7 @@
 
 <script lang='ts'>
 import Vue from "vue";
-import { Component, Prop } from "vue-property-decorator";
+import { Component, Prop, Watch } from "vue-property-decorator";
 import Icon from "@/components/Icon.vue";
 @Component({
   components: { Icon },
@@ -35,6 +35,7 @@ export default class Types extends Vue {
       this.tagList = this.value
     }
   }
+
   clearTag(tag: string) {
     const index = this.value.indexOf(tag);
     const xxx = this.value.splice(index, 1);

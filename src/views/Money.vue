@@ -18,7 +18,7 @@ import Notes from "@/components/Money/Notes.vue";
 import Numbers from "@/components/Money/Numbers.vue";
 import { Component, Watch } from "vue-property-decorator";
 import { RecordItem } from "@/types";
-import  model  from "@/model";
+import  model  from "@/tagListModel";
 
 const version = window.localStorage.getItem("version") || "0";
 const recordList: RecordItem[] = model.fetch();
@@ -37,14 +37,13 @@ window.localStorage.setItem("version", "0.0.1");
 })
 export default class Money extends Vue {
   // tags = ["apparel", "foot", "house", "travel"];
-
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   // @Emit("tags") send(tags: string[]) {
   //   console.log(tags);
   // }
 
   record: RecordItem = {
-    tag: "",
+    tag:[],
     notes: "",
     type: "-",
     numbers: "0",
@@ -55,7 +54,7 @@ export default class Money extends Vue {
     window.localStorage.getItem("recordList") || "[]"
   );
 
-  onUpdateTags(tag: string): void {
+  onUpdateTags(tag: string[]): void {
     this.record.tag = tag;
   }
   handleDone(): void {
@@ -66,9 +65,11 @@ export default class Money extends Vue {
   }
 
   @Watch("recordList")
-  onRcordListChange() {
+  onRecordListChange() {
     window.localStorage.setItem("recordList", JSON.stringify(this.recordList));
   }
+
+
 }
 </script>
 

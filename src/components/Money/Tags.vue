@@ -27,26 +27,22 @@ export default class Tags extends Vue {
   @Prop()
   currTag!: string;
 
+  created() {
+    if(this.tagList.length===0){
+      this.tagList = this.tags
+    }
+  }
+
   @Watch("tagList")
   onTagListChange() {
-    window.localStorage.getItem("tagList");
+    window.localStorage.getItem("tagList") || undefined;
   }
 
   @Emit("update:value")
-  toggle(tag: string): void {
+  toggle(tag: string[]): void {
     console.log(tag);
   }
-  create(): void {
-    // const name = window.prompt("请输入标签名：");
-    // console.log(name);
-    // if (name === "") {
-    //   window.alert("标签名不能为空");
-    // } else {
-    //   if (this.currTag) {
-    //     this.$emit("update:value", [...this.currTag, name]);
-    //   }
-    // }
-  }
+  
 }
 </script>
 

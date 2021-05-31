@@ -1,5 +1,5 @@
 export type RecordItem = {
-  tag: string;
+  tag: string[];
   notes: string;
   type: string;
   numbers: string;

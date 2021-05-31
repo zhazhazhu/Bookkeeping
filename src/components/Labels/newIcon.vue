@@ -18,14 +18,14 @@ import Vue from "vue";
 import { Component } from "vue-property-decorator";
 import Layout from "@/components/Layout.vue";
 import Head from "@/components/Labels/Head.vue";
-import { types } from "@/Tags";
+import { tags } from "@/Tags";
 import Icon from "@/components/Icon.vue";
 
 @Component({
   components: { Layout, Head, Icon },
 })
 export default class newIcon extends Vue {
-  tags = types;
+  tags = tags;
 
   clearTag(tag: string) {
     const index = this.tags.indexOf(tag);

@@ -4,8 +4,8 @@
       <li v-for="tag in tagList" :key="tag" @click="toggle(tag)">
         <Icon :name="tag" :class="{ selected: tag === currTag }" />
       </li>
-      <li >
-        <router-link :to="{ path: '/labels' }">
+      <li>
+        <router-link :to="{ path: '/newIcon' }">
           <Icon name="new" id="newIcon" />
         </router-link>
       </li>

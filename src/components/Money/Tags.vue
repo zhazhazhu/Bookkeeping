@@ -48,8 +48,9 @@ export default class Tags extends Vue {
   }
 
   @Emit()
-  toggle(tag: string[]): void {
+  toggle(tag: string): void {
     console.log(tag);
+    this.currTag = tag
   }
 }
 </script>

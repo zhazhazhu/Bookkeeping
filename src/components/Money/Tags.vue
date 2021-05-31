@@ -4,7 +4,7 @@
       <li v-for="tag in tagList" :key="tag" @click="toggle(tag)">
         <Icon :name="tag" :class="{ selected: tag === currTag }" />
       </li>
-      <li @click="createTag">
+      <li >
         <router-link :to="{ path: '/labels' }">
           <Icon name="new" id="newIcon" />
         </router-link>
@@ -15,14 +15,17 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { Component, Prop, Watch } from "vue-property-decorator";
+import { Component, Emit, Prop, Watch } from "vue-property-decorator";
 import { tags } from "@/Tags";
+import tagListModel from "@/models/tagListModel";
+
+tagListModel.fetch()
 
 @Component
 export default class Tags extends Vue {
   tags: string[] = tags; //表示这个数组里面是字符串
 
-  tagList: string[] = JSON.parse(localStorage.getItem("tagList") || "[]");
+  tagList = tagListModel.data
 
   @Prop()
   currTag!: string;
@@ -30,6 +33,9 @@ export default class Tags extends Vue {
   createTag() {
     console.log('hi');
   }
+
+  
+
   // created() {
   //   if (this.tagList.length === 0) {
   //     this.tagList = this.tags;
@@ -41,6 +47,10 @@ export default class Tags extends Vue {
     window.localStorage.getItem("tagList") || undefined;
   }
 
+  @Emit()
+  toggle(tag: string[]): void {
+    console.log(tag);
+  }
 }
 </script>
 

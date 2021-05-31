@@ -20,14 +20,14 @@ import Layout from "@/components/Layout.vue";
 import Head from "@/components/Labels/Head.vue";
 import { tags } from "@/Tags";
 import Icon from "@/components/Icon.vue";
-import tagListModel from '@/models/tagListModel'
-import tagAll from '../../models/tagAllModel';
+import tagListModel from "@/models/tagListModel";
+import tagAll from "../../models/tagAllModel";
 
-tagListModel.fetch()
+tagListModel.fetch();
 
-tagAll.fetch()
+tagAll.fetch();
 
-tagAll.data = tags
+tagAll.data = tags;
 
 @Component({
   components: { Layout, Head, Icon },
@@ -35,23 +35,25 @@ tagAll.data = tags
 export default class newIcon extends Vue {
   tags = tagListModel.data;
 
-  tagAll = tagAll.data
+  tagAll = tagAll.data;
 
   created() {
-   tagAll.save() 
+    tagAll.save();
   }
 
   createTag(tag: string) {
-    if(this.tags.indexOf(tag) >= 0 ){
-      window.alert('标签已存在')
-      return
+    if (this.tags.indexOf(tag) >= 0) {
+      window.alert("标签已存在");
+      return;
+    } else {
+      window.alert('添加成功')
+      this.tags.push(tag);
+      window.localStorage.setItem("tagList", JSON.stringify(this.tags));
     }
-    this.tags.push(tag)
-    window.localStorage.setItem('tagList',JSON.stringify(this.tags))
   }
-  
-  yes(){
-    console.log(this.tagAll)
+
+  yes() {
+    console.log(this.tagAll);
   }
 }
 </script>

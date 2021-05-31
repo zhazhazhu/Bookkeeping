@@ -50,6 +50,7 @@ export default class Money extends Vue {
     createdAt: undefined,
   };
 
+
   recordList: RecordItem[] = JSON.parse(
     window.localStorage.getItem("recordList") || "[]"
   );

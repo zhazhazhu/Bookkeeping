@@ -4,7 +4,7 @@
       <li v-for="tag in tagList" :key="tag" @click="toggle(tag)">
         <Icon :name="tag" :class="{ selected: tag === currTag }" />
       </li>
-      <li @click="create">
+      <li @click="createTag">
         <router-link :to="{ path: '/labels' }">
           <Icon name="new" id="newIcon" />
         </router-link>
@@ -27,9 +27,13 @@ export default class Tags extends Vue {
   @Prop()
   currTag!: string;
 
+  createTag() {
+    console.log('hi');
+  }
+
   created() {
-    if(this.tagList.length===0){
-      this.tagList = this.tags
+    if (this.tagList.length === 0) {
+      this.tagList = this.tags;
     }
   }
 
@@ -42,7 +46,6 @@ export default class Tags extends Vue {
   toggle(tag: string[]): void {
     console.log(tag);
   }
-  
 }
 </script>
 

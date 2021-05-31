@@ -1,23 +1,20 @@
 <template>
   <Layout>
     <Head></Head>
-    <Types :value="tags"></Types>
+    <Types></Types>
   </Layout>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import Head from "@/components/Labels/Head.vue";
-import { Component} from "vue-property-decorator";
-import { tags } from "../Tags";
-import Types from '@/components/Labels/Types.vue'
+import { Component } from "vue-property-decorator";
+import Types from "@/components/Labels/Types.vue";
 
 @Component({
-  components: { Head,Types },
+  components: { Head, Types },
 })
-export default class Labels extends Vue {
-  tags = tags;
-}
+export default class Labels extends Vue {}
 </script>
 
 <style scoped>

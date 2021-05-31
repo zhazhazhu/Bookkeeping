@@ -22,6 +22,7 @@
 import Vue from "vue";
 import { Component, Prop, Watch } from "vue-property-decorator";
 import Icon from "@/components/Icon.vue";
+import { tags } from "@/Tags";
 @Component({
   components: { Icon },
 })
@@ -31,15 +32,16 @@ export default class Types extends Vue {
   tagList: string[] = JSON.parse(localStorage.getItem("tagList") || "[]");
 
   created() {
-    if(this.tagList.length===0){
-      this.tagList = this.value
-    }
+    window.localStorage.setItem("tagList", JSON.stringify(tags));
+  }
+  mounted() {
+    this.$emit("init-tags");
   }
 
   clearTag(tag: string) {
-    const index = this.value.indexOf(tag);
-    const xxx = this.value.splice(index, 1);
-    window.localStorage.setItem("tagList", JSON.stringify(this.value));
+    const index = this.tagList.indexOf(tag);
+    index !== -1 && this.tagList.splice(index, 1);
+    window.localStorage.setItem("tagList", JSON.stringify(this.tagList));
   }
 }
 </script>
@@ -51,15 +53,16 @@ export default class Types extends Vue {
       background: linear-gradient(
         90deg,
         rgba(255, 255, 255, 1) 0%,
-        rgba(255, 187, 97, 1) 87%
+        rgba(255, 187, 97, 0.6) 87%
       );
-      padding: 10px;
       width: 100vw;
       margin-top: 10px;
       position: relative;
       > .icon {
         display: flex;
-        left: 0;
+        margin-left: 10px;
+        height: 50px;
+        width: 50px;
       }
     }
     > .new {
@@ -80,7 +83,7 @@ export default class Types extends Vue {
     background-color: rgba(238, 238, 238, 0.308);
     color: rgb(43, 43, 43);
     height: 100%;
-    margin: -40px auto;
+    margin: -50px auto;
     padding: 10px;
     border: 1px solid transparent;
     outline: none;

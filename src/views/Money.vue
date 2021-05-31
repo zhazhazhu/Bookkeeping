@@ -2,7 +2,7 @@
   <Layout classPrefix="layout">
     <Numbers :value.sync="record.numbers" @done="handleDone"></Numbers>
     <Notes :value.sync="record.notes"></Notes>
-    <Tags :currTag.sync="record.tag" @update:value="onUpdateTags"></Tags>
+    <Tags :currTag.sync="record.tag"></Tags>
     <Types :value.sync="record.type"></Types>
   </Layout>
 </template>
@@ -16,7 +16,7 @@ import Numbers from "@/components/Money/Numbers.vue";
 import { Component, Watch } from "vue-property-decorator";
 import { RecordItem } from "@/types";
 import model from "@/models/recordListModel";
-import tagListModel from "../models/tagListModel";
+import tagListModel from '../models/tagListModel';
 
 const version = window.localStorage.getItem("version") || "0";
 const recordList: RecordItem[] = model.fetch();
@@ -54,9 +54,6 @@ export default class Money extends Vue {
     window.localStorage.getItem("recordList") || "[]"
   );
 
-  onUpdateTags(tag: string[]): void {
-    this.record.tag = tag;
-  }
   handleDone(): void {
     const record2: RecordItem = model.clone(this.record);
     record2.createdAt = new Date();

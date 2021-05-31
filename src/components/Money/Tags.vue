@@ -15,7 +15,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { Component, Emit, Prop, Watch } from "vue-property-decorator";
+import { Component, Prop, Watch } from "vue-property-decorator";
 import { tags } from "@/Tags";
 
 @Component
@@ -30,22 +30,17 @@ export default class Tags extends Vue {
   createTag() {
     console.log('hi');
   }
-
-  created() {
-    if (this.tagList.length === 0) {
-      this.tagList = this.tags;
-    }
-  }
+  // created() {
+  //   if (this.tagList.length === 0) {
+  //     this.tagList = this.tags;
+  //   }
+  // }
 
   @Watch("tagList")
   onTagListChange() {
     window.localStorage.getItem("tagList") || undefined;
   }
 
-  @Emit("update:value")
-  toggle(tag: string[]): void {
-    console.log(tag);
-  }
 }
 </script>
 

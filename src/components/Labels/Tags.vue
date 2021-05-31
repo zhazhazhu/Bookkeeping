@@ -31,6 +31,7 @@ export default class Types extends Vue {
   created() {
     window.localStorage.setItem("tagList", JSON.stringify(this.tags));
   }
+  
 
   clearTag(tag: string) {
     const index = this.tagList.indexOf(tag);

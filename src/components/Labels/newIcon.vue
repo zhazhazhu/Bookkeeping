@@ -2,12 +2,12 @@
   <Layout>
     <Head></Head>
     <ul>
-      <li v-for="tag in tags" :key="tag">
+      <li v-for="tag in tagAll" :key="tag">
         <Icon :name="tag"></Icon>
-        <button @click="clearTag(tag)">删除</button>
+        <button @click="createTag(tag)">添加</button>
       </li>
       <li>
-        <button>完成</button>
+        <button @click="yes">完成</button>
       </li>
     </ul>
   </Layout>
@@ -20,17 +20,38 @@ import Layout from "@/components/Layout.vue";
 import Head from "@/components/Labels/Head.vue";
 import { tags } from "@/Tags";
 import Icon from "@/components/Icon.vue";
+import tagListModel from '@/models/tagListModel'
+import tagAll from '../../models/tagAllModel';
+
+tagListModel.fetch()
+
+tagAll.fetch()
+
+tagAll.data = tags
 
 @Component({
   components: { Layout, Head, Icon },
 })
 export default class newIcon extends Vue {
-  tags = tags;
+  tags = tagListModel.data;
 
-  clearTag(tag: string) {
-    const index = this.tags.indexOf(tag);
-    const xxx = this.tags.splice(index, 1);
-    window.localStorage.setItem('tags',JSON.stringify(this.tags))
+  tagAll = tagAll.data
+
+  created() {
+   tagAll.save() 
+  }
+
+  createTag(tag: string) {
+    if(this.tags.indexOf(tag) >= 0 ){
+      window.alert('标签已存在')
+      return
+    }
+    this.tags.push(tag)
+    window.localStorage.setItem('tagList',JSON.stringify(this.tags))
+  }
+  
+  yes(){
+    console.log(this.tagAll)
   }
 }
 </script>

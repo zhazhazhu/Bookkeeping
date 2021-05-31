@@ -2,11 +2,15 @@
   <div class="types">
     <ul>
       <li v-for="(tag, i) in tagList" :key="i" class="tag-item">
-        <Icon :name="tag"></Icon>
+        <Icon :name="tag" />
         <button @click="clearTag(tag)">删除</button>
       </li>
-      <li class="new" @click="createTag">
-        <Icon name="newIcon"></Icon>
+      <li class="new" >
+        <router-link :to="{
+          path:'/newIcon'
+        }">
+        <Icon name="newIcon" />
+        </router-link>
       </li>
     </ul>
   </div>
@@ -14,7 +18,7 @@
 
 <script lang='ts'>
 import Vue from "vue";
-import { Component, Prop } from "vue-property-decorator";
+import { Component } from "vue-property-decorator";
 import Icon from "@/components/Icon.vue";
 import tagListModel from "../../models/tagListModel";
 
@@ -31,7 +35,7 @@ export default class Types extends Vue {
   created() {
     window.localStorage.setItem("tagList", JSON.stringify(this.tags));
   }
-  
+
 
   clearTag(tag: string) {
     const index = this.tagList.indexOf(tag);

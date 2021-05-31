@@ -2,10 +2,7 @@
   <Layout classPrefix="layout">
     <Numbers :value.sync="record.numbers" @done="handleDone"></Numbers>
     <Notes :value.sync="record.notes"></Notes>
-    <Tags
-      :currTag.sync="record.tag"
-      @update:value="onUpdateTags"
-    ></Tags>
+    <Tags :currTag.sync="record.tag" @update:value="onUpdateTags"></Tags>
     <Types :value.sync="record.type"></Types>
   </Layout>
 </template>
@@ -18,10 +15,12 @@ import Notes from "@/components/Money/Notes.vue";
 import Numbers from "@/components/Money/Numbers.vue";
 import { Component, Watch } from "vue-property-decorator";
 import { RecordItem } from "@/types";
-import  model  from "@/tagListModel";
+import model from "@/models/recordListModel";
+import tagListModel from "../models/tagListModel";
 
 const version = window.localStorage.getItem("version") || "0";
 const recordList: RecordItem[] = model.fetch();
+const tagList = tagListModel.fetch();
 
 if (version === "0.0.1") {
   //数据库升级，迁移数据
@@ -36,6 +35,7 @@ window.localStorage.setItem("version", "0.0.1");
   components: { Types, Tags, Notes, Numbers },
 })
 export default class Money extends Vue {
+  tags = tagList;
   // tags = ["apparel", "foot", "house", "travel"];
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   // @Emit("tags") send(tags: string[]) {
@@ -43,7 +43,7 @@ export default class Money extends Vue {
   // }
 
   record: RecordItem = {
-    tag:[],
+    tag: [],
     notes: "",
     type: "-",
     numbers: "0",
@@ -58,8 +58,7 @@ export default class Money extends Vue {
     this.record.tag = tag;
   }
   handleDone(): void {
-    // localStorage.setItem("record", JSON.stringify(this.record));
-    const record2: RecordItem = JSON.parse(JSON.stringify(this.record));
+    const record2: RecordItem = model.clone(this.record);
     record2.createdAt = new Date();
     this.recordList.push(record2);
   }
@@ -68,8 +67,6 @@ export default class Money extends Vue {
   onRecordListChange() {
     window.localStorage.setItem("recordList", JSON.stringify(this.recordList));
   }
-
-
 }
 </script>
 

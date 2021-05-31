@@ -5,14 +5,8 @@
         <Icon :name="tag"></Icon>
         <button @click="clearTag(tag)">删除</button>
       </li>
-      <li class="new">
-        <router-link
-          :to="{
-            path: '/newIcon',
-          }"
-        >
-          <Icon name="newIcon"></Icon>
-        </router-link>
+      <li class="new" @click="createTag">
+        <Icon name="newIcon"></Icon>
       </li>
     </ul>
   </div>
@@ -20,28 +14,38 @@
 
 <script lang='ts'>
 import Vue from "vue";
-import { Component, Prop, Watch } from "vue-property-decorator";
+import { Component, Prop } from "vue-property-decorator";
 import Icon from "@/components/Icon.vue";
-import { tags } from "@/Tags";
+import tagListModel from "../../models/tagListModel";
+
+tagListModel.fetch();
+
 @Component({
   components: { Icon },
 })
 export default class Types extends Vue {
-  @Prop() value!: string[];
+  tags = tagListModel.data;
 
-  tagList: string[] = JSON.parse(localStorage.getItem("tagList") || "[]");
+  tagList = tagListModel.fetch();
 
   created() {
-    window.localStorage.setItem("tagList", JSON.stringify(tags));
-  }
-  mounted() {
-    this.$emit("init-tags");
+    window.localStorage.setItem("tagList", JSON.stringify(this.tags));
   }
 
   clearTag(tag: string) {
     const index = this.tagList.indexOf(tag);
     index !== -1 && this.tagList.splice(index, 1);
     window.localStorage.setItem("tagList", JSON.stringify(this.tagList));
+  }
+
+  createTag() {
+    const name = window.prompt("请输入标签名");
+    if (name) {
+      const message = tagListModel.create(name);
+      if (message === "duplicated") {
+        window.alert("标签已存在");
+      }
+    }
   }
 }
 </script>

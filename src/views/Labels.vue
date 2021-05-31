@@ -9,7 +9,7 @@
 import Vue from "vue";
 import Head from "@/components/Labels/Head.vue";
 import { Component } from "vue-property-decorator";
-import Types from "@/components/Labels/Types.vue";
+import Types from "@/components/Labels/Tags.vue";
 
 @Component({
   components: { Head, Types },

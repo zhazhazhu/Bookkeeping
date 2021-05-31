@@ -18,7 +18,7 @@ import Notes from "@/components/Money/Notes.vue";
 import Numbers from "@/components/Money/Numbers.vue";
 import { Component, Watch } from "vue-property-decorator";
 import { RecordItem } from "@/types";
-import { model } from "@/model";
+import  model  from "@/model";
 
 const version = window.localStorage.getItem("version") || "0";
 const recordList: RecordItem[] = model.fetch();

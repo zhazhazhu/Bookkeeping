@@ -14,12 +14,7 @@
 
     <div class="name">
       <span>自定义</span>
-      <input
-        type="text"
-        placeholder="请输入标签名"
-        v-model="value"
-        @keyup.enter="inputFunc(value)"
-      />
+      <input type="text" placeholder="请输入标签名" v-model="value" />
     </div>
 
     <div class="me">
@@ -35,22 +30,25 @@
 
 <script lang='ts'>
 import Vue from "vue";
-import { Component, Watch } from "vue-property-decorator";
+import { Component } from "vue-property-decorator";
 import Layout from "@/components/Layout.vue";
 import Head from "@/components/Labels/Head.vue";
 import { tagXxx } from "@/Tags";
 import Icon from "@/components/Icon.vue";
 import tagListModel from "@/models/tagListModel";
 import tagAll, { tag } from "../../models/tagAllModel";
-import tagMe from "../../models/tagMeModel";
+import tagMex from "../../models/tagMeModel";
+import { tagMeAll } from "@/TagMe";
 
 tagListModel.fetch();
 
 tagAll.fetch();
 
-tagAll.data = tagXxx; 
+tagAll.data = tagXxx;
 
-tagMe.fetch();
+tagMex.fetch();
+
+tagMex.data = tagMeAll;
 
 @Component({
   components: { Layout, Head, Icon },
@@ -60,15 +58,15 @@ export default class newIcon extends Vue {
 
   tagAll = tagAll.data;
 
-  tagMeAll = tagMe.data;
+  tagMeAll = tagMex.data;
 
   value = "";
 
-  tag!: tag;
+  tag: tag = {};
 
   created() {
     tagAll.save();
-    tagMe.save();
+    tagMex.save();
   }
 
   getTag(tag: tag) {
@@ -87,25 +85,21 @@ export default class newIcon extends Vue {
     }
   }
 
-  yesMe() {
-    console.log("hi");
+  customize(tag: string) {
+    this.tag.type = tag;
+    console.log(tag);
   }
 
-  // customize() {
-  //   if (this.tags.indexOf(this.tag) >= 0) {
-  //     window.alert("标签已存在");
-  //     return;
-  //   } else {
-  //     window.alert("添加成功");
-  //     this.tags.push(this.tag);
-  //     window.localStorage.setItem("tagList", JSON.stringify(this.tags));
-  //   }
-  // }
-
-  @Watch("")
-  inputFunc(value: string) {
-    this.value = value;
-    console.log(this.value);
+  yesMe() {
+    this.tag.name = this.value;
+    if (this.tags.indexOf(this.tag) >= 0) {
+      window.alert("标签已存在");
+      return;
+    } else {
+      window.alert("添加成功");
+      this.tags.push(this.tag);
+      window.localStorage.setItem("tagList", JSON.stringify(this.tags));
+    }
   }
 }
 </script>

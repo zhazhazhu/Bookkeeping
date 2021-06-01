@@ -1,7 +1,7 @@
 <template>
   <div class="tags">
     <ul class="current">
-      <li v-for="tag in tagList" :key="tag" @click="toggle(tag)">
+      <li v-for="tag in tagList" :key="tag.type" @click="toggle(tag)">
         <Icon :name="tag.type" :class="{ selected: tag === currTag }" />
         <span>{{tag.name}}</span>
       </li>

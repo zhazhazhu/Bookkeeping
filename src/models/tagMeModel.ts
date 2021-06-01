@@ -1,14 +1,10 @@
-const localStorageKeyName = "tagMe";
+const localStorageKeyName = "tagMex";
 
-type tag = {
-  name: string;
-  type: string;
-};
 
 type TagMeModel = {
-  data: tag[];
-  fetch: () => tag[];
-  create: (name: tag) => string; //success 表示成功，duplicated 表示标签名重复
+  data: string[];
+  fetch: () => string[];
+  create: (name: string) => string; //success 表示成功，duplicated 表示标签名重复
   save: () => void;
 };
 
@@ -20,7 +16,7 @@ const tagMe: TagMeModel = {
     );
     return this.data;
   },
-  create(name: tag) {
+  create(name: string) {
     if (this.data.indexOf(name) >= 0) {
       return "duplicated";
     }

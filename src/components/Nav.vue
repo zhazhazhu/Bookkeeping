@@ -7,7 +7,7 @@
       class="item"
       active-class="selected"
     >
-      <Icon name="label" />
+      <Icon name="label" class="icon" />
       标签
     </router-link>
     <router-link
@@ -17,7 +17,7 @@
       class="item"
       active-class="selected"
     >
-      <Icon name="money" />
+      <Icon name="money" class="icon" />
       记账</router-link
     >
     <router-link
@@ -27,7 +27,7 @@
       class="item"
       active-class="selected"
     >
-      <Icon name="statistics" />
+      <Icon name="statistics" class="icon" />
       统计</router-link
     >
   </nav>

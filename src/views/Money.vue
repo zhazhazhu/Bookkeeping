@@ -43,7 +43,7 @@ export default class Money extends Vue {
   // }
 
   record: RecordItem = {
-    tag: {},
+    tag: {name:'',type:''},
     notes: "",
     type: "-",
     numbers: "0",

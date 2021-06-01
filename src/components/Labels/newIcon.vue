@@ -5,7 +5,7 @@
       <span class="text">默认</span>
       <ul class="system">
         <li v-for="tag in tagAll" :key="tag.type" @click="getTag(tag)">
-          <Icon :name="tag.type"></Icon>
+          <Icon :name="tag.type" :class="createClass(tag)"></Icon>
           <span>{{ tag.name }}</span>
         </li>
       </ul>
@@ -20,7 +20,7 @@
     <div class="me">
       <ul class="me-tag">
         <li v-for="tag in tagMeAll" :key="tag" @click="customize(tag)">
-          <Icon :name="tag"></Icon>
+          <Icon :name="tag" :class="create(tag)"></Icon>
         </li>
       </ul>
       <button @click="yesMe()">确定</button>
@@ -62,20 +62,25 @@ export default class newIcon extends Vue {
 
   value = "";
 
-  tag: tag = {};
+  tag: tag = { name: "", type: "" };
 
   created() {
     tagAll.save();
     tagMex.save();
   }
 
-  getTag(tag: string) {
-    this.tag.type = tag;
-    console.log(this.tag);
+  getTag(tag: tag) {
+    this.tag={name:'',type:''}
+    if (this.tag.name==="" && this.tag.type === "") {
+      this.tag = tag;
+    }else{
+      this.tag = {name:'',type:''}
+    }
   }
 
   yes() {
-    if (this.tags.indexOf(this.tag) >= 0) {
+    const a = this.tags.map((item) => item.name);
+    if (a.indexOf(this.tag.name) >= 0) {
       window.alert("标签已存在");
       return;
     } else {
@@ -86,13 +91,17 @@ export default class newIcon extends Vue {
   }
 
   customize(tag: string) {
+    this.tag={name:'',type:''}
+    if(this.tag.name==="" && this.tag.type === ""){
     this.tag.type = tag;
-    console.log(tag);
+    }else{
+      this.tag.type = ''
+    }
   }
 
   yesMe() {
     this.tag.name = this.value;
-    const a=this.tags.map(item=>item.name)
+    const a = this.tags.map((item) => item.name);
     if (a.indexOf(this.tag.name) >= 0) {
       console.log(this.tags);
       window.alert("标签已存在");
@@ -101,6 +110,20 @@ export default class newIcon extends Vue {
       window.alert("添加成功");
       this.tags.push(this.tag);
       window.localStorage.setItem("tagList", JSON.stringify(this.tags));
+    }
+  }
+
+  createClass(tag: tag) {
+    if (tag.name === this.tag.name) {
+      console.log("hi");
+      console.log('-----');
+      return "selected";
+    }
+  }
+  create(tag:string){
+    if(this.tag.type === tag){
+      console.log('hello');
+      return 'selected'
     }
   }
 }
@@ -128,12 +151,17 @@ export default class newIcon extends Vue {
     align-content: flex-start;
     justify-content: space-around;
     > li {
-      width: 25%;
+      width: 40px;
       height: 40px;
       margin-top: 16px;
       > .icon {
         height: 100%;
         width: 100%;
+      }
+      > .icon.selected {
+        border: 1px solid rgb(255, 145, 0);
+        border-radius: 50%;
+        box-shadow: 1px 1px 5px rgb(255, 183, 89);
       }
       > span {
         width: 18%;
@@ -180,12 +208,17 @@ export default class newIcon extends Vue {
     align-content: flex-start;
     justify-content: space-around;
     > li {
-      width: 18%;
+      width: 40px;
       height: 40px;
       margin-top: 16px;
       > .icon {
         height: 100%;
         width: 100%;
+      }
+      > .icon.selected {
+        border: 1px solid rgb(255, 145, 0);
+        border-radius: 50%;
+        box-shadow: 1px 1px 5px rgb(255, 183, 89);
       }
     }
   }

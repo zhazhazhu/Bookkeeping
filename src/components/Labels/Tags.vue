@@ -6,11 +6,13 @@
         <span>{{ tag.name }}</span>
         <button @click="clearTag(tag)">删除</button>
       </li>
-      <li class="new" >
-        <router-link :to="{
-          path:'/newIcon'
-        }">
-        <Icon name="newIcon" />
+      <li class="new">
+        <router-link
+          :to="{
+            path: '/newIcon',
+          }"
+        >
+          <Icon name="newIcon" />
         </router-link>
       </li>
     </ul>
@@ -38,14 +40,11 @@ export default class Types extends Vue {
     window.localStorage.setItem("tagList", JSON.stringify(this.tags));
   }
 
-
   clearTag(tag: tag) {
     const index = this.tagList.indexOf(tag);
     index !== -1 && this.tagList.splice(index, 1);
     window.localStorage.setItem("tagList", JSON.stringify(this.tagList));
   }
-
-
 }
 </script>
 
@@ -67,7 +66,7 @@ export default class Types extends Vue {
         height: 50px;
         width: 50px;
       }
-      >span{
+      > span {
         width: 14%;
         height: 50px;
         font-size: 16px;

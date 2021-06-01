@@ -69,8 +69,8 @@ export default class newIcon extends Vue {
     tagMex.save();
   }
 
-  getTag(tag: tag) {
-    this.tag = tag;
+  getTag(tag: string) {
+    this.tag.type = tag;
     console.log(this.tag);
   }
 
@@ -92,7 +92,9 @@ export default class newIcon extends Vue {
 
   yesMe() {
     this.tag.name = this.value;
-    if (this.tags.indexOf(this.tag) >= 0) {
+    const a=this.tags.map(item=>item.name)
+    if (a.indexOf(this.tag.name) >= 0) {
+      console.log(this.tags);
       window.alert("标签已存在");
       return;
     } else {

@@ -16,7 +16,7 @@ import Numbers from "@/components/Money/Numbers.vue";
 import { Component, Watch } from "vue-property-decorator";
 import { RecordItem } from "@/types";
 import model from "@/models/recordListModel";
-import tagListModel from '../models/tagListModel';
+import tagListModel from "../models/tagListModel";
 
 const version = window.localStorage.getItem("version") || "0";
 const recordList: RecordItem[] = model.fetch();
@@ -43,13 +43,12 @@ export default class Money extends Vue {
   // }
 
   record: RecordItem = {
-    tag: [],
+    tag: {},
     notes: "",
     type: "-",
     numbers: "0",
     createdAt: undefined,
   };
-
 
   recordList: RecordItem[] = JSON.parse(
     window.localStorage.getItem("recordList") || "[]"

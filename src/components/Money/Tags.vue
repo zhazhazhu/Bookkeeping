@@ -2,8 +2,11 @@
   <div class="tags">
     <ul class="current">
       <li v-for="tag in tagList" :key="tag.type" @click="toggle(tag)">
-        <Icon :name="tag.type" :class="{ selected: tag === currTag }" />
-        <span>{{tag.name}}</span>
+        <Icon
+          :name="tag.type"
+          :class="{ selected: tag.name === currTag.name }"
+        />
+        <span>{{ tag.name }}</span>
       </li>
       <li>
         <router-link :to="{ path: '/newIcon' }">
@@ -19,23 +22,22 @@ import Vue from "vue";
 import { Component, Emit, Prop, Watch } from "vue-property-decorator";
 import { tags } from "@/Tags";
 import tagListModel from "@/models/tagListModel";
+import { tag } from "@/models/tagAllModel";
 
-tagListModel.fetch()
+tagListModel.fetch();
 
 @Component
 export default class Tags extends Vue {
   tags: string[] = tags; //表示这个数组里面是字符串
 
-  tagList = tagListModel.data
+  tagList = tagListModel.data;
 
   @Prop()
-  currTag!: string;
+  currTag!: tag;
 
   createTag() {
-    console.log('hi');
+    console.log("hi");
   }
-
-  
 
   // created() {
   //   if (this.tagList.length === 0) {
@@ -48,10 +50,9 @@ export default class Tags extends Vue {
     window.localStorage.getItem("tagList") || undefined;
   }
 
-  @Emit()
-  toggle(tag: string): void {
-    console.log(tag);
-    this.currTag = tag
+  @Emit("update:currTag")
+  toggle(tag: tag) {
+    return tag;
   }
 }
 </script>

@@ -1,9 +1,14 @@
 const localStorageKeyName = "tagList";
 
+type tag = {
+  name:string,
+  type:string
+}
+
 type TagListModel={
-  data:string[],
-  fetch:() => string[],
-  create: (name:string) => string, //success 表示成功，duplicated 表示标签名重复
+  data:tag[],
+  fetch:() => tag[],
+  create: (name:tag) => string, //success 表示成功，duplicated 表示标签名重复
   save: () => void
 }
 
@@ -13,7 +18,7 @@ const tagListModel: TagListModel = {
     this.data = JSON.parse(window.localStorage.getItem(localStorageKeyName) || "[]") 
     return this.data
   },
-  create(name:string){
+  create(name:tag){
     if(this.data.indexOf(name) >= 0){return 'duplicated' }
     this.data.push(name)
     this.save()

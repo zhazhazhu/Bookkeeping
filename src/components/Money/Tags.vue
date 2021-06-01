@@ -2,7 +2,8 @@
   <div class="tags">
     <ul class="current">
       <li v-for="tag in tagList" :key="tag" @click="toggle(tag)">
-        <Icon :name="tag" :class="{ selected: tag === currTag }" />
+        <Icon :name="tag.type" :class="{ selected: tag === currTag }" />
+        <span>{{tag.name}}</span>
       </li>
       <li>
         <router-link :to="{ path: '/newIcon' }">

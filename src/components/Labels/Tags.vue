@@ -2,7 +2,8 @@
   <div class="types">
     <ul>
       <li v-for="(tag, i) in tagList" :key="i" class="tag-item">
-        <Icon :name="tag" />
+        <Icon :name="tag.type" />
+        <span>{{ tag.name }}</span>
         <button @click="clearTag(tag)">删除</button>
       </li>
       <li class="new" >
@@ -21,6 +22,7 @@ import Vue from "vue";
 import { Component } from "vue-property-decorator";
 import Icon from "@/components/Icon.vue";
 import tagListModel from "../../models/tagListModel";
+import { tag } from "@/models/tagAllModel";
 
 tagListModel.fetch();
 
@@ -37,21 +39,13 @@ export default class Types extends Vue {
   }
 
 
-  clearTag(tag: string) {
+  clearTag(tag: tag) {
     const index = this.tagList.indexOf(tag);
     index !== -1 && this.tagList.splice(index, 1);
     window.localStorage.setItem("tagList", JSON.stringify(this.tagList));
   }
 
-  createTag() {
-    const name = window.prompt("请输入标签名");
-    if (name) {
-      const message = tagListModel.create(name);
-      if (message === "duplicated") {
-        window.alert("标签已存在");
-      }
-    }
-  }
+
 }
 </script>
 
@@ -72,6 +66,17 @@ export default class Types extends Vue {
         margin-left: 10px;
         height: 50px;
         width: 50px;
+      }
+      >span{
+        width: 14%;
+        height: 50px;
+        font-size: 16px;
+        display: flex;
+        position: absolute;
+        left: 15%;
+        top: 0;
+        justify-content: center;
+        align-items: center;
       }
     }
     > .new {

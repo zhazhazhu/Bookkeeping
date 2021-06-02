@@ -40,6 +40,8 @@ export default class Money extends Vue {
     const record2: RecordItem = model.clone(this.record);
     record2.createdAt = new Date();
     this.recordList.push(record2);
+    window.alert('ok')
+    location.reload()
   }
 
   @Watch("recordList")

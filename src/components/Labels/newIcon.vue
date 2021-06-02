@@ -69,7 +69,7 @@ export default class newIcon extends Vue {
       window.alert("添加成功");
       this.tags.push(this.tag);
       window.localStorage.setItem("tagList", JSON.stringify(this.tags));
-      this.$router.replace('/money')
+      this.$router.replace("/money");
     }
   }
 
@@ -126,8 +126,8 @@ export default class newIcon extends Vue {
     align-content: flex-start;
     justify-content: space-around;
     > li {
-      width: 40px;
-      height: 40px;
+      width: 45px;
+      height: 45px;
       margin-top: 16px;
       > .icon {
         height: 100%;

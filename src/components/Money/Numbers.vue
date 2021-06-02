@@ -35,7 +35,7 @@ export default class Numbers extends Vue {
   mounted(): void {
     this.money = this.value;
   }
-  inputContent(event: MouseEvent): void {
+  inputContent(event: MouseEvent) {
     const button = event.target as HTMLButtonElement;
     const input = button.textContent as string;
     if (this.money.length === 8) {
@@ -69,7 +69,7 @@ export default class Numbers extends Vue {
     this.$emit("update:value", this.money);
   }
   @Emit("done")
-  ok(): void {
+  ok(){
     this.money = "0";
   }
 }

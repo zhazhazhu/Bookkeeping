@@ -3,6 +3,7 @@ const localStorageKeyName = "tagAll";
 export type tag = {
   name?: string;
   type?: string;
+  default?: boolean;
 };
 
 type TagListModel = {

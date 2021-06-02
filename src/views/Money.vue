@@ -18,16 +18,14 @@ import { RecordItem } from "@/types";
 import model from "@/models/recordListModel";
 import tagListModel from "../models/tagListModel";
 
-const tagList = tagListModel.fetch();
-
 @Component({
   components: { Types, Tags, Notes, Numbers },
 })
 export default class Money extends Vue {
-  tags = tagList;
+  tags = tagListModel.fetch();
 
   record: RecordItem = {
-    tag: {name:'',type:''},
+    tag: { name: "", type: "" },
     notes: "",
     type: "-",
     numbers: "0",

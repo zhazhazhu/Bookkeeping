@@ -4,7 +4,12 @@
       <li v-for="(tag, i) in tagList" :key="i" class="tag-item">
         <Icon :name="tag.type" />
         <span>{{ tag.name }}</span>
-        <button @click="clearTag(tag)">删除</button>
+        <button
+          @click="clearTag(tag)"
+          :style="{ color: tag.default ? '#cab6b6' : '#2b2b2b' }"
+        >
+          删除
+        </button>
       </li>
       <li class="new">
         <router-link
@@ -41,6 +46,9 @@ export default class Types extends Vue {
   }
 
   clearTag(tag: tag) {
+    if (tag.default === true) {
+      return;
+    }
     const index = this.tagList.indexOf(tag);
     index !== -1 && this.tagList.splice(index, 1);
     window.localStorage.setItem("tagList", JSON.stringify(this.tagList));
@@ -56,7 +64,9 @@ export default class Types extends Vue {
         90deg,
         rgba(255, 255, 255, 1) 0%,
         rgba(255, 187, 97, 0.6) 87%
+        
       );
+        display: flex;
       width: 100vw;
       margin-top: 10px;
       position: relative;
@@ -67,13 +77,10 @@ export default class Types extends Vue {
         width: 50px;
       }
       > span {
-        width: 14%;
-        height: 50px;
+        color: rgb(78, 78, 78);
+        width: 60px;
         font-size: 16px;
         display: flex;
-        position: absolute;
-        left: 15%;
-        top: 0;
         justify-content: center;
         align-items: center;
       }
@@ -96,7 +103,6 @@ export default class Types extends Vue {
     background-color: rgba(238, 238, 238, 0.308);
     color: rgb(43, 43, 43);
     height: 100%;
-    margin: -50px auto;
     padding: 10px;
     border: 1px solid transparent;
     outline: none;

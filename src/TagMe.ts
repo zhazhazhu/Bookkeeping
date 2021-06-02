@@ -1,1 +1,1 @@
-export const tagMeAll =[ 'foot','apparel','house','travel' ]
+export const tagMeAll = ["foot", "apparel", "house", "travel"];

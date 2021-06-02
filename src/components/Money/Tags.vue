@@ -3,7 +3,7 @@
     <ul class="current">
       <li
         v-for="tag in tagList"
-        :key="tag.type"
+        :key="tag.name"
         @click="toggle(tag)"
         class="icon"
       >
@@ -23,26 +23,17 @@
 </template>
 
 <script lang="ts">
+import { tag } from "@/models/tagAllModel";
+import tagListModel from "@/models/tagListModel";
 import Vue from "vue";
 import { Component, Emit, Prop, Watch } from "vue-property-decorator";
-import tagListModel from "@/models/tagListModel";
-import { tag } from "@/models/tagAllModel";
-import { tagXxx } from "@/Tags";
-
-tagListModel.fetch();
 
 @Component
 export default class Tags extends Vue {
-  tagList = tagListModel.data || tagXxx;
+  tagList = tagListModel.fetch();
 
   @Prop()
-  currTag?: tag ;
-
-  created() {
-    if (this.tagList.length === 0) {
-      this.tagList = tagXxx;
-    }
-  }
+  currTag?: tag;
 
   @Watch("tagList")
   onTagListChange() {

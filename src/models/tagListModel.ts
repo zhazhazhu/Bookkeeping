@@ -1,20 +1,18 @@
 import { tag } from "./tagAllModel";
-
-const localStorageKeyName = "tagList";
+import { defaultTags } from "../Tags";
 
 type TagListModel = {
   data: tag[];
   fetch: () => tag[];
   create: (name: tag) => string; //success 表示成功，duplicated 表示标签名重复
   save: () => void;
+  init: (data:tag[]) => void;
 };
 
 const tagListModel: TagListModel = {
   data: [],
   fetch() {
-    this.data = JSON.parse(
-      window.localStorage.getItem(localStorageKeyName) || "[]"
-    );
+    this.data = JSON.parse(window.localStorage.getItem("tagList") || "[]");
     return this.data;
   },
   create(name: tag) {
@@ -26,8 +24,13 @@ const tagListModel: TagListModel = {
     return "success";
   },
   save() {
-    window.localStorage.setItem(localStorageKeyName, JSON.stringify(this.data));
+    window.localStorage.setItem("tagList", JSON.stringify(this.data));
+  },
+  init(data) {
+    if (data.length === 0 ) {
+      this.data = defaultTags;
+    }
+    this.save();
   },
 };
-
 export default tagListModel;

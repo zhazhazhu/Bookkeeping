@@ -1,6 +1,6 @@
 <template>
   <div class="Head">
-    <span>Logo</span>
+    <span>自定义</span>
   </div>
 </template>
 
@@ -17,7 +17,7 @@ export default class Head extends Vue {}
   background: $yellow;
   display: flex;
   font-size: 20px;
-  height: 80px;
+  height: 70px;
   justify-content: space-around;
   align-items: flex-end;
 }

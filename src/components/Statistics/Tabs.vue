@@ -32,6 +32,8 @@
 <script lang='ts'>
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
+import intervalList from "@/constants/interval";
+import typeList from "@/constants/typeList";
 
 type DataSourceItem = { text: string; value: string };
 
@@ -43,16 +45,9 @@ export default class Tabs extends Vue {
 
   @Prop() classPrefix?: string;
 
-  typeList = [
-    { text: "支出", value: "-" },
-    { text: "收入", value: "+" },
-  ];
+  intervalList = intervalList;
 
-  intervalList = [
-    { text: "周", value: "week" },
-    { text: "月", value: "month" },
-    { text: "年", value: "year" },
-  ];
+  typeList = typeList;
 
   select(item: DataSourceItem) {
     this.$emit("update:value", item.value);
@@ -112,7 +107,7 @@ export default class Tabs extends Vue {
     color: #2c3e50;
     &.selected {
       background-color: rgb(8, 25, 80);
-      color: #fdfdfd;
+      color: #d0d8e7;
     }
   }
 }

@@ -1,19 +1,20 @@
 <template>
   <Layout>
-    <Types :value.sync="value"></Types>
+    <Tabs class-prefix="type" :value.sync="type" :value2.sync="interval" />
   </Layout>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
-import Types from '@/components/Money/Types.vue';
+import Tabs from "@/components/Statistics/Tabs.vue";
 
 @Component({
-  components: { Types },
+  components: { Tabs },
 })
 export default class Statistics extends Vue {
-  value="-"
+  type = "-";
+  interval = "week";
 }
 </script>
 

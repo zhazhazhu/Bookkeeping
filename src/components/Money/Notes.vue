@@ -2,7 +2,7 @@
   <div>
     <label class="notes">
       <span class="name">备注</span>
-      <input type="text" placeholder="在这里输入备注" />
+      <input type="text" placeholder="在这里输入备注" @input="onValueChanged($event.target.value)" />
     </label>
   </div>
 </template>
@@ -16,7 +16,7 @@ export default class Notes extends Vue {
   @Prop() value!: string;
 
   @Watch("value")
-  onValueChanged(value: string): void {
+  onValueChanged(value: string) {
     if (value !== "") {
       this.$emit("update:value", value);
     }

@@ -103,26 +103,21 @@ export default class newIcon extends Vue {
     this.tag.name = this.value;
     const a = this.tags.map((item) => item.name);
     if (a.indexOf(this.tag.name) >= 0) {
-      console.log(this.tags);
       window.alert("标签已存在");
       return;
     } else {
       window.alert("添加成功");
-      this.tags.push(this.tag);
       window.localStorage.setItem("tagList", JSON.stringify(this.tags));
     }
   }
 
   createClass(tag: tag) {
     if (tag.name === this.tag.name) {
-      console.log("hi");
-      console.log('-----');
       return "selected";
     }
   }
   create(tag:string){
     if(this.tag.type === tag){
-      console.log('hello');
       return 'selected'
     }
   }

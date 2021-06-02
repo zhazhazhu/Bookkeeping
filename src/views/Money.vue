@@ -18,29 +18,13 @@ import { RecordItem } from "@/types";
 import model from "@/models/recordListModel";
 import tagListModel from "../models/tagListModel";
 
-const version = window.localStorage.getItem("version") || "0";
-const recordList: RecordItem[] = model.fetch();
 const tagList = tagListModel.fetch();
-
-if (version === "0.0.1") {
-  //数据库升级，迁移数据
-  recordList.forEach((record) => {
-    record.createdAt = new Date(2020, 2, 1);
-  });
-  window.localStorage.setItem("recordList", JSON.stringify(recordList));
-}
-window.localStorage.setItem("version", "0.0.1");
 
 @Component({
   components: { Types, Tags, Notes, Numbers },
 })
 export default class Money extends Vue {
   tags = tagList;
-  // tags = ["apparel", "foot", "house", "travel"];
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  // @Emit("tags") send(tags: string[]) {
-  //   console.log(tags);
-  // }
 
   record: RecordItem = {
     tag: {name:'',type:''},

@@ -25,30 +25,24 @@
 <script lang="ts">
 import Vue from "vue";
 import { Component, Emit, Prop, Watch } from "vue-property-decorator";
-import { tags } from "@/Tags";
 import tagListModel from "@/models/tagListModel";
 import { tag } from "@/models/tagAllModel";
+import { tagXxx } from "@/Tags";
 
 tagListModel.fetch();
 
 @Component
 export default class Tags extends Vue {
-  tags: string[] = tags; //表示这个数组里面是字符串
-
-  tagList = tagListModel.data;
+  tagList = tagListModel.data || tagXxx;
 
   @Prop()
-  currTag!: tag;
+  currTag?: tag ;
 
-  createTag() {
-    console.log("hi");
+  created() {
+    if (this.tagList.length === 0) {
+      this.tagList = tagXxx;
+    }
   }
-
-  // created() {
-  //   if (this.tagList.length === 0) {
-  //     this.tagList = this.tags;
-  //   }
-  // }
 
   @Watch("tagList")
   onTagListChange() {

@@ -44,11 +44,7 @@ tagListModel.fetch();
 
 tagAll.fetch();
 
-tagAll.data = tagXxx;
-
 tagMex.fetch();
-
-tagMex.data = tagMeAll;
 
 @Component({
   components: { Layout, Head, Icon },
@@ -56,9 +52,9 @@ tagMex.data = tagMeAll;
 export default class newIcon extends Vue {
   tags = tagListModel.data;
 
-  tagAll = tagAll.data;
+  tagAll = tagXxx;
 
-  tagMeAll = tagMex.data;
+  tagMeAll = tagMeAll;
 
   value = "";
 
@@ -70,8 +66,7 @@ export default class newIcon extends Vue {
   }
 
   getTag(tag: tag) {
-    this.tag={name:'',type:''}
-    if (this.tag.name==="" && this.tag.type === "") {
+    if (this.tag.type === '') {
       this.tag = tag;
     }else{
       this.tag = {name:'',type:''}
@@ -91,8 +86,7 @@ export default class newIcon extends Vue {
   }
 
   customize(tag: string) {
-    this.tag={name:'',type:''}
-    if(this.tag.name==="" && this.tag.type === ""){
+    if(this.tag.type === ''){
     this.tag.type = tag;
     }else{
       this.tag.type = ''
@@ -107,6 +101,7 @@ export default class newIcon extends Vue {
       return;
     } else {
       window.alert("添加成功");
+      this.tags.push(this.tag);
       window.localStorage.setItem("tagList", JSON.stringify(this.tags));
     }
   }

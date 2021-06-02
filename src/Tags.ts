@@ -1,5 +1,3 @@
-export const tags = ["apparel", "foot", "house", "travel"]; 
-
 export const tagXxx =[
   {name:'衣服',type:'apparel'},
   {name:'食物',type:'foot'},

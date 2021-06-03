@@ -26,6 +26,16 @@
         {{ item.text }}
       </li>
     </ul>
+    <ul>
+      <li v-for="(group, index) in result" :key="index">
+        {{group.title}}
+        <ol>
+          <li v-for="item in group.items" :key="item.createdAt">
+            {{ item.numbers }} {{ item.createdAt }}
+          </li>
+        </ol>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -34,6 +44,7 @@ import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
 import intervalList from "@/constants/interval";
 import typeList from "@/constants/typeList";
+import { RecordItem, RootState } from "@/types";
 
 type DataSourceItem = { text: string; value: string };
 
@@ -44,6 +55,26 @@ export default class Tabs extends Vue {
   @Prop() value2!: string;
 
   @Prop() classPrefix?: string;
+
+  get recordList() {
+    return (this.$store.state as RootState).recordList;
+  }
+
+  get result() {
+    const { recordList } = this;
+    type HashTableValue = { title: string; items: RecordItem[] };
+    const hashTable: { [key: string]: HashTableValue } = {};
+    for (let i = 0; i < recordList.length; i++) {
+      const [date, time] = recordList[i].createdAt!.split("T");
+      hashTable[date] = hashTable[date] || {title:date,items:[]};
+      hashTable[date].items.push(recordList[i]);
+    }
+    return hashTable;
+  }
+
+  beforeCreate() {
+    this.$store.commit("fetch");
+  }
 
   intervalList = intervalList;
 

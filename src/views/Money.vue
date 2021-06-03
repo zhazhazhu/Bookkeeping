@@ -29,7 +29,7 @@ export default class Money extends Vue {
     notes: "",
     type: "-",
     numbers: "0",
-    createdAt: undefined,
+    createdAt: '',
   };
 
   recordList: RecordItem[] = JSON.parse(
@@ -38,7 +38,7 @@ export default class Money extends Vue {
 
   handleDone(): void {
     const record2: RecordItem = model.clone(this.record);
-    record2.createdAt = new Date();
+    record2.createdAt = new Date().toUTCString();
     this.recordList.push(record2);
     window.alert('ok')
     location.reload()

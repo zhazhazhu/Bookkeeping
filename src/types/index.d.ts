@@ -5,5 +5,9 @@ export type RecordItem = {
   notes: string;
   type: string;
   numbers: string;
-  createdAt: Date | undefined;
+  createdAt?: string;
 };
+
+export type RootState ={
+  recordList:RecordItem[]
+}

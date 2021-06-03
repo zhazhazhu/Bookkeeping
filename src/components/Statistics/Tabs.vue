@@ -29,7 +29,7 @@
 
     <ul class="list">
       <li v-for="(group, index) in result" :key="index">
-        <span class="title">{{ group.title }}</span>
+        <span class="title">{{ beautify(group.title) }}</span>
         <ol>
           <li v-for="item in group.items" :key="item.createdAt" class="record">
             <span v-if="item.tag.type" class="type"
@@ -54,6 +54,7 @@ import { Component, Prop } from "vue-property-decorator";
 import intervalList from "@/constants/interval";
 import typeList from "@/constants/typeList";
 import { RecordItem, RootState } from "@/types";
+import dayjs from "dayjs";
 
 type DataSourceItem = { text: string; value: string };
 
@@ -69,6 +70,14 @@ export default class Tabs extends Vue {
     return (this.$store.state as RootState).recordList;
   }
 
+  beautify(string: string) {
+    const d = new Date(string);
+    const month = d.getMonth();
+    const day = d.getDay();
+    const date = month + "月" + day + "日";
+    return date;
+  }
+
   get result() {
     const { recordList } = this;
     type HashTableValue = { title: string; items: RecordItem[] };
@@ -77,6 +86,7 @@ export default class Tabs extends Vue {
       const [date, time] = recordList[i].createdAt!.split("T");
       hashTable[date] = hashTable[date] || { title: date, items: [] };
       hashTable[date].items.push(recordList[i]);
+      
     }
     return hashTable;
   }

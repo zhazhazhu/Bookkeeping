@@ -26,18 +26,27 @@
         {{ item.text }}
       </li>
     </ul>
-    <ul>
+
+    <ul class="list">
       <li v-for="(group, index) in result" :key="index">
-        {{group.title}}
+        <span class="title">{{ group.title }}</span>
         <ol>
-          <li v-for="item in group.items" :key="item.createdAt">
-            {{ item.numbers }} {{ item.createdAt }}
+          <li v-for="item in group.items" :key="item.createdAt" class="record">
+            <span v-if="item.tag.type" class="type"
+              ><Icon :name="item.tag.type"></Icon
+            ></span>
+            <span v-else class="type">空</span>
+            <span class="notes">{{
+              item.notes ? item.notes : item.tag.name
+            }}</span>
+            <span class="money">¥{{ item.numbers }}</span>
           </li>
         </ol>
       </li>
     </ul>
   </div>
 </template>
+
 
 <script lang='ts'>
 import Vue from "vue";
@@ -66,7 +75,7 @@ export default class Tabs extends Vue {
     const hashTable: { [key: string]: HashTableValue } = {};
     for (let i = 0; i < recordList.length; i++) {
       const [date, time] = recordList[i].createdAt!.split("T");
-      hashTable[date] = hashTable[date] || {title:date,items:[]};
+      hashTable[date] = hashTable[date] || { title: date, items: [] };
       hashTable[date].items.push(recordList[i]);
     }
     return hashTable;
@@ -142,26 +151,40 @@ export default class Tabs extends Vue {
     }
   }
 }
-
-// .tabs {
-//   background: $yellow;
-//   display: flex;
-//   text-align: center;
-//   height: 40px;
-//   font-size: 14px;
-//   justify-content: center;
-//   > li {
-//     border: 0.5px solid rgb(37, 37, 37);
-//     width: 30%;
-//     height: 65%;
-//     margin-top: 6px;
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//   }
-//   > .selected {
-//     background-color: rgb(15, 69, 85);
-//     color: $yellow;
-//   }
-// }
+.list {
+  margin-top: 16px;
+  height: 72vh;
+  display: flex;
+  > li .title {
+    color: #696969;
+    padding-left: 10px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgb(177, 177, 177);
+  }
+  > li ol .record {
+    width: 100vw;
+    line-height: 50px;
+    display: flex;
+    align-items: center;
+    > .type {
+      height: 30px;
+      width: 30px;
+      margin: 0 10px 0 10px;
+    }
+    > .notes {
+      color: rgb(87, 87, 87);
+      width: 55%;
+      display: flex;
+      margin-left: 10px;
+    }
+    > .money {
+      display: flex;
+      margin-left: auto;
+      color: rgb(63, 63, 63);
+      margin-right: 6px;
+    }
+  }
+}
 </style>

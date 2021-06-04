@@ -33,6 +33,7 @@ export default class Layout extends Vue{
 }
 .content {
   flex-grow: 1;
+  width: 100vw;
   overflow: auto;
 }
 </style>

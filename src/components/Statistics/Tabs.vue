@@ -54,7 +54,6 @@ import { Component, Prop } from "vue-property-decorator";
 import intervalList from "@/constants/interval";
 import typeList from "@/constants/typeList";
 import { RecordItem, RootState } from "@/types";
-import dayjs from "dayjs";
 
 type DataSourceItem = { text: string; value: string };
 
@@ -72,7 +71,7 @@ export default class Tabs extends Vue {
 
   beautify(string: string) {
     const d = new Date(string);
-    const month = d.getMonth();
+    const month = d.getMonth()+1;
     const day = d.getDay();
     const date = month + "月" + day + "日";
     return date;
@@ -86,7 +85,6 @@ export default class Tabs extends Vue {
       const [date, time] = recordList[i].createdAt!.split("T");
       hashTable[date] = hashTable[date] || { title: date, items: [] };
       hashTable[date].items.push(recordList[i]);
-      
     }
     return hashTable;
   }
@@ -163,13 +161,16 @@ export default class Tabs extends Vue {
 }
 .list {
   margin-top: 16px;
+  width: 100vw;
   height: 72vh;
   display: flex;
+  flex-direction: column;
   > li .title {
     color: #696969;
     padding-left: 10px;
     height: 40px;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     border-bottom: 1px solid rgb(177, 177, 177);
   }

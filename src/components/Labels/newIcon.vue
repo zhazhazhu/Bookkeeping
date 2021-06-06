@@ -124,6 +124,7 @@ export default class newIcon extends Vue {
     align-content: flex-start;
     justify-content: space-around;
     > li {
+      margin: 5px 16px;
       width: 45px;
       height: 45px;
       margin-top: 16px;

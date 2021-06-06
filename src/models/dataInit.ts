@@ -1,4 +1,6 @@
 import tagListModel from "./tagListModel";
+tagListModel.init();
+
 const defaultRecords = [
   {
     tag: { name: "食物", type: "foot", default: true },
@@ -29,6 +31,7 @@ const defaultRecords = [
     createdAt: "2021-06-06T09:13:10.245Z",
   },
 ];
-
-window.localStorage.setItem("recordList", JSON.stringify(defaultRecords));
-tagListModel.init();
+const records: [] = JSON.parse(localStorage.getItem("recordList") || "[]");
+if (records.length === 0) {
+  localStorage.setItem("recordList", JSON.stringify(defaultRecords));
+}

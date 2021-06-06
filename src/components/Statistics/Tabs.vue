@@ -61,6 +61,8 @@ type DataSourceItem = { text: string; value: string };
 
 @Component
 export default class Tabs extends Vue {
+  type = "-" || "+";
+
   @Prop() value!: string;
 
   @Prop() value2!: string;
@@ -78,34 +80,66 @@ export default class Tabs extends Vue {
 
   get groupList() {
     const { recordList } = this;
+
     if (recordList.length === 0) {
       return [];
     }
-    const newList = clone(recordList).filter(r=>r.type).sort(
-      (a, b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf()
-    );
-    type Result = { title: string; total?: number; items: RecordItem[] }[];
-    const result: Result = [
-      {
-        title: dayjs(newList[0].createdAt).format("YYYY-MM-DD"),
-        items: [newList[0]],
-      },
-    ];
-    for (let i = 1; i < newList.length; i++) {
-      const current = newList[i];
-      const last = result[result.length - 1];
-      if (dayjs(last.title).isSame(dayjs(current.createdAt), "day")) {
-        last.items.push(current);
-      } else {
-        result.push({
-          title: dayjs(current.createdAt).format("YYYY-MM-DD"),
-          items: [current],
-        });
+
+    if (this.value === "-") {
+      const newList = clone(recordList)
+        .filter((r) => r.type === this.value)
+        .sort(
+          (a, b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf()
+        );
+
+      type Result = { title: string; total?: number; items: RecordItem[] }[];
+      const result: Result = [
+        {
+          title: dayjs(newList[0].createdAt).format("YYYY-MM-DD"),
+          items: [newList[0]],
+        },
+      ];
+      for (let i = 1; i < newList.length; i++) {
+        const current = newList[i];
+        const last = result[result.length - 1];
+        if (dayjs(last.title).isSame(dayjs(current.createdAt), "day")) {
+          last.items.push(current);
+        } else {
+          result.push({
+            title: dayjs(current.createdAt).format("YYYY-MM-DD"),
+            items: [current],
+          });
+        }
       }
+      return result;
+    }else{
+      const newList = clone(recordList)
+        .filter((r) => r.type === this.value)
+        .sort(
+          (a, b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf()
+        );
+
+      type Result = { title: string; total?: number; items: RecordItem[] }[];
+      const result: Result = [
+        {
+          title: dayjs(newList[0].createdAt).format("YYYY-MM-DD"),
+          items: [newList[0]],
+        },
+      ];
+      for (let i = 1; i < newList.length; i++) {
+        const current = newList[i];
+        const last = result[result.length - 1];
+        if (dayjs(last.title).isSame(dayjs(current.createdAt), "day")) {
+          last.items.push(current);
+        } else {
+          result.push({
+            title: dayjs(current.createdAt).format("YYYY-MM-DD"),
+            items: [current],
+          });
+        }
+      }
+      return result;
     }
-    console.log(result);
-    
-    return result;
   }
 
   beforeCreate() {

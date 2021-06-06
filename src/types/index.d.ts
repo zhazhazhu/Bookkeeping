@@ -11,3 +11,8 @@ export type RecordItem = {
 export type RootState ={
   recordList:RecordItem[]
 }
+
+export type Tag = {
+  id: string;
+  name: string;
+}

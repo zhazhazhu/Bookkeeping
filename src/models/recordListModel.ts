@@ -3,7 +3,7 @@ import { RecordItem } from '../types/index';
 const localStorageKeyName = "recordList";
 
 const model = {
-  clone(data:RecordItem[] | RecordItem){
+  clone<x>(data:x):x{
     return JSON.parse(JSON.stringify(data))
   },
   fetch(): RecordItem[] {

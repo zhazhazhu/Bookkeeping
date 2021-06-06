@@ -38,7 +38,6 @@
 <script lang='ts'>
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
-import intervalList from "@/constants/interval";
 import typeList from "@/constants/typeList";
 import { RecordItem, RootState } from "@/types";
 import dayjs from "dayjs";
@@ -69,7 +68,7 @@ export default class Tabs extends Vue {
     const { recordList } = this;
 
     if (recordList.length === 0) {
-      return ['当前无数据'];
+      return ["当前无数据"];
     }
     const newList = clone(recordList)
       .filter((r) => r.type === this.value)

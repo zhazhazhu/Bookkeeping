@@ -6,9 +6,7 @@ import store from "./store";
 import Nav from "@/components/Nav.vue";
 import Layout from "@/components/Layout.vue";
 import Icon from "@/components/Icon.vue";
-import tagListModel from "./models/tagListModel";
-const xxx = tagListModel.fetch()
-tagListModel.init(xxx);
+import "@/models/dataInit";
 
 Vue.config.productionTip = false;
 

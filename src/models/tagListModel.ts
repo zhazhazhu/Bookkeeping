@@ -6,7 +6,7 @@ type TagListModel = {
   fetch: () => tag[];
   create: (name: tag) => string; //success 表示成功，duplicated 表示标签名重复
   save: () => void;
-  init: (data:tag[]) => void;
+  init: () => void;
 };
 
 const tagListModel: TagListModel = {
@@ -26,8 +26,8 @@ const tagListModel: TagListModel = {
   save() {
     window.localStorage.setItem("tagList", JSON.stringify(this.data));
   },
-  init(data) {
-    if (data.length === 0 ) {
+  init() {
+    if (this.data.length === 0) {
       this.data = defaultTags;
     }
     this.save();

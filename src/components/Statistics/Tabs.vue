@@ -13,19 +13,7 @@
         <span>{{ item.text }}</span>
       </li>
     </ul>
-    <ul class="date">
-      <li
-        v-for="item in intervalList"
-        :key="item.value"
-        :class="{
-          [classPrefix + '-tab']: classPrefix,
-          selected: value2 === item.value,
-        }"
-        @click="select2(item)"
-      >
-        {{ item.text }}
-      </li>
-    </ul>
+    
 
     <ul class="list">
       <li v-for="(group, index) in groupList" :key="index">
@@ -145,8 +133,6 @@ export default class Tabs extends Vue {
   beforeCreate() {
     this.$store.commit("fetch");
   }
-
-  intervalList = intervalList;
 
   typeList = typeList;
 

@@ -40,7 +40,6 @@ export default class Money extends Vue {
     const record2: RecordItem = model.clone(this.record);
     record2.createdAt = new Date().toISOString();
     this.recordList.push(record2);
-    console.log(record2.createdAt);
     window.alert('ok')
     location.reload()
   }

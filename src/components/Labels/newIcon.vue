@@ -52,7 +52,7 @@ export default class newIcon extends Vue {
   }
 
   customize(tag: string) {
-      this.tag.type = tag;
+    this.tag.type = tag;
   }
 
   yesMe() {
@@ -61,9 +61,10 @@ export default class newIcon extends Vue {
     if (a.indexOf(this.tag.name) >= 0) {
       window.alert("标签已存在");
       return;
-    }else if(!this.tag.name){
-      window.alert('标签名不能为空')
-    }else {
+    } else if (this.tag.name === "" || this.tag.type === "") {
+      window.alert("标签名或标签不能为空");
+      return;
+    } else {
       window.alert("添加成功");
       this.tags.push(this.tag);
       window.localStorage.setItem("tagList", JSON.stringify(this.tags));

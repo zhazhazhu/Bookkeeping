@@ -13,10 +13,10 @@
         <span>{{ item.text }}</span>
       </li>
     </ul>
-    
 
     <ul class="list">
       <li v-for="(group, index) in groupList" :key="index">
+        {{group}}
         <span class="title">{{ beautify(group.title) }}</span>
         <ol>
           <li v-for="item in group.items" :key="item.createdAt" class="record">
@@ -70,16 +70,15 @@ export default class Tabs extends Vue {
     const { recordList } = this;
 
     if (recordList.length === 0) {
-      return '当前无数据';
+      return ['当前无数据'];
     }
+    const newList = clone(recordList)
+      .filter((r) => r.type === this.value)
+      .sort(
+        (a, b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf()
+      );
 
     if (this.value === "-") {
-      const newList = clone(recordList)
-        .filter((r) => r.type === this.value)
-        .sort(
-          (a, b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf()
-        );
-
       type Result = { title: string; total?: number; items: RecordItem[] }[];
       const result: Result = [
         {
@@ -100,13 +99,10 @@ export default class Tabs extends Vue {
         }
       }
       return result;
-    }else{
-      const newList = clone(recordList)
-        .filter((r) => r.type === this.value)
-        .sort(
-          (a, b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf()
-        );
-      if(newList.length === 0){return ['当前无数据'] }
+    } else {
+      if (newList.length === 0) {
+        return ["当前无数据"];
+      }
       type Result = { title: string; total?: number; items: RecordItem[] }[];
       const result: Result = [
         {

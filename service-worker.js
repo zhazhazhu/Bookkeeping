@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "precache-manifest.9008d48dafc38e896f5d45967246f54c.js"
+  "precache-manifest.3596d0617c418082eedca97bbd200e54.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "bookkeeping"});

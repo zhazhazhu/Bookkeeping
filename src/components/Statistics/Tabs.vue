@@ -16,7 +16,6 @@
 
     <ul class="list">
       <li v-for="(group, index) in groupList" :key="index">
-        {{group}}
         <span class="title">{{ beautify(group.title) }}</span>
         <ol>
           <li v-for="item in group.items" :key="item.createdAt" class="record">
